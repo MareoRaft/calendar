@@ -1,0 +1,1 @@
+An unfinished in-the-works program to share your google calendar publically/conveniently/beautifully with others.
