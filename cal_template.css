@@ -1,9 +1,10 @@
 html {
+	height: 100vh;
 	font-family: -apple-system, Helvetica, Arial, sans-serif;
 }
 body {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 }
 
 /* WRAPPER PATTERN */
@@ -14,12 +15,14 @@ body {
     justify-content: space-between;
 }
 .left-gutter {
-    min-width: 40px;
-    width: 40px;
+    min-width: 51px;
+    width: 51px;
+    padding-right: 5px;
 	font-size: smaller;
 }
 .main-container {
 	width: 100%;
+	position: relative; /* classifies position as 'non static', but doesn't change anything since we haven't set left or top */
 }
 
 
@@ -27,6 +30,11 @@ body {
 header {
 	width: 100%;
 	background-color: pink;
+}
+#month-and-year {
+	font-size: 30px;
+	padding: 6px;
+	padding-left: 9px;
 }
 #days-of-week {
 	width: 100%;
@@ -40,6 +48,8 @@ header {
 
 /* CONTENT */
 #content-of-week-wrapper {
+	height: 100%;
+	overflow: scroll;
 }
 #times-gutter {
 	background-color: yellow;
@@ -49,21 +59,34 @@ header {
 	width: 100%;
 }
 #times-gutter td {
-	height: 50px;
+	height: 54px;
 	text-align: right;
 }
-#content-of-week {
+.content-of-week {
+	position: absolute; /* parent element should be non-static, so it should get positioned to 0,0 relative to it's parent */
+	left: 0px;
+	top: 8px;
 	width: 100%;
 	height: 100%;
-	background-color: red;
-	color: white;
 	table-layout: fixed; /* for equal horizontal spacing */
+}
+#content-of-week-backdrop {
+	background-color: blue;
+}
+#content-of-week-backdrop .hour {
+	height: 54px;
+	border-top: 1px solid #ccc;
+}
+#content-of-week {
+	/*background-color: red;*/
+	opacity: 0.5;
+	color: white;
 }
 #my-event {
 	width: 100%;
 	height: 150px;
 	word-break: break-all;
 	overflow: hidden; /* 'scroll' or 'hidden' depending on browser */
-	background-color: blue;
-	color: black;
+	background-color: green;
+	color: white;
 }
