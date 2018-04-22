@@ -1,3 +1,5 @@
+@import 'reset';
+
 html {
 	font-family: -apple-system, Helvetica, Arial, sans-serif;
 }
@@ -90,6 +92,7 @@ body {
 	height: 150px;
 	word-break: break-all;
 	overflow: hidden; /* 'scroll' or 'hidden' depending on browser */
+	font-size: smaller;
 	background-color: green;
 	color: white;
 }
