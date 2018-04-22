@@ -18,7 +18,7 @@ def draw_event(d, event):
 	start_x_pos = event.start_datetime().weekday() * COL_WIDTH
 	start_y_pos = COL_HEIGHT - (event.start_hour_decimal() - 10) * HOUR_HEIGHT
 	end_y_pos = COL_HEIGHT - (event.end_hour_decimal() - 10) * HOUR_HEIGHT
-	height = event.hour_duration_decimal() * HOUR_HEIGHT
+	height = (event.end_hour_decimal() - event.start_hour_decimal()) * HOUR_HEIGHT
 	rect = draw.Rectangle(
 		start_x_pos, end_y_pos,
 		COL_WIDTH, height,

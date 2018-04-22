@@ -36,8 +36,19 @@ class Event:
 		else:
 			return hour_decimal(self.end_datetime())
 
+	def hour_duration_decimal(self):
+		return self.end_hour_decimal() - self.start_hour_decimal()
+
 	def summary(self):
 		return self.event['summary']
 
 	def __repr__(self):
 		return json.dumps(self.event)
+
+	def as_json_for_javascript(self):
+		d = {
+			hour_duration: self.hour_duration_decimal(),
+			start_hour_decimal: self.start_hour_decimal(),
+			day: self.start_datetime().day,
+		}
+		return json.dumps(d)

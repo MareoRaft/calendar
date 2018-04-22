@@ -4,7 +4,6 @@ import json
 
 from helpers import get_credentials, get_service
 from event import Event
-from cal_svg import init_drawing, draw_calendar
 
 CAL_NAME_TO_ID = {
 	'Away': 'e2r5nqkil48kbshsql3ke1c61c@group.calendar.google.com',
@@ -35,12 +34,17 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# return
 	return events
 
-def main():
+def main(output='html'):
 	service = get_service()
 	events = get_events(service, cal_names=['Away', 'Home'])
-	d = init_drawing()
-	draw_calendar(d, events)
-	d.savePng('cal.png')
+	if output == 'svg':
+		from cal_svg import init_drawing, draw_calendar
+		d = init_drawing()
+		draw_calendar(d, events)
+		d.savePng('cal.png')
+	elif output == 'html':
+		# jinja me timbers
+		pass
 
 if __name__ == '__main__':
 	main()
