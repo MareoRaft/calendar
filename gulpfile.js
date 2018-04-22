@@ -6,7 +6,7 @@ syncronous running: http://stackoverflow.com/questions/26715230/gulp-callback-ho
 const gulp = require('gulp')
 
 const compass = require('gulp-for-compass')
-const autoprefixer = require('gulp-autoprefixer')
+// const autoprefixer = require('gulp-autoprefixer')
 // const babel = require('gulp-babel')
 const exec = require('child_process').exec
 // const moment = require('moment')
@@ -14,7 +14,7 @@ const exec = require('child_process').exec
 
 
 /////////////////// GLOBALS ///////////////////
-const src_scss = 'sass/**/*.scss'
+const src_scss = 'client-side/sass/**/*.scss'
 // const src_js6 = 'www/scripts6/**/*.js'
 
 const log_standard = function(event) {
@@ -26,15 +26,15 @@ const log_standard = function(event) {
 gulp.task('css', function() {
 	gulp.src(src_scss)
 		.pipe(compass({
-			sassDir: 'sass',
-			cssDir: 'css-built',
+			sassDir: 'client-side/sass',
+			cssDir: 'client-side/css-built',
 			force: true,
 		}))
-		.pipe(autoprefixer({
-			browsers: ['last 3 versions'],
-			cascade: false,
-		}))
-		.pipe(gulp.dest('css-built'))
+		// .pipe(autoprefixer({
+		// 	browsers: ['last 3 versions'],
+		// 	cascade: false,
+		// }))
+		.pipe(gulp.dest('client-side/css-built'))
 })
 
 // gulp.task('js', function() {

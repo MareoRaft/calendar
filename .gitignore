@@ -3,6 +3,9 @@ secrets.txt
 quickstart.py
 cal.png
 client_secret.json
+node_modules/
+.sass-cache/
+css-built/
 
 
 ### Python ###
