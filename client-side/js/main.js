@@ -1,6 +1,12 @@
 // once we finish writing in python, we will then translate that to JS, so that a new request to the server won't need to be made every time the user wants to view more info on the calendar.
 // Define websocket to be used for server interaction
 
+//////////////////// GLOBALS ////////////////////
+let socket = undefined
+let HOUR_HEIGHT = 54
+
+
+//////////////////// CLASSES ////////////////////
 class Socket { // manually extend WebSocket, because WebSocket didn't want to use "super"
 
 	constructor(onmessage_func) {
@@ -34,22 +40,34 @@ class Socket { // manually extend WebSocket, because WebSocket didn't want to us
 }
 
 
-//////////////////// GLOBALS ////////////////////
-let socket = undefined
-
-
 /////////////////// FUNCTIONS ///////////////////
+
+function drawEvent(event) {
+	let day = event['day']
+	let top = event['start_hour_decimal'] * HOUR_HEIGHT
+	let height = event['hour_duration'] * HOUR_HEIGHT
+	alert(top)
+
+	// do some day logic here
+	let day_id = 'day' + day
+
+	// add to HTML
+	let $event = $('<div/>', {class: 'event', text: 'Go to Google!'})
+	$event.appendTo('#' + day_id)
+	$event.css('top', '' + top + 'px')
+	$event.css('height', '' + height + 'px')
+}
 
 function onmessage(dic) {
 	command	= dic['command']
 	if (command === 'co') {
-		alert('got co!')
+		// draw each event on the calendar
+		events = dic['events']
+		for (event of events) {
+			drawEvent(event)
+		}
 	}
 }
-
-
-
-//stuff
 
 function initGlobals() {
 	socket = new Socket(onmessage)
@@ -57,10 +75,4 @@ function initGlobals() {
 
 $(document).ready(function(){
 	initGlobals()
-
-
-	alert('hi')
-
-
-
 })

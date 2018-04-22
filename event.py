@@ -45,10 +45,10 @@ class Event:
 	def __repr__(self):
 		return json.dumps(self.event)
 
-	def as_json_for_javascript(self):
+	def as_dict_for_javascript(self):
 		d = {
-			hour_duration: self.hour_duration_decimal(),
-			start_hour_decimal: self.start_hour_decimal(),
-			day: self.start_datetime().day,
+			'hour_duration': self.hour_duration_decimal(),
+			'start_hour_decimal': self.start_hour_decimal(),
+			'day': self.start_datetime().day,
 		}
-		return json.dumps(d)
+		return d
