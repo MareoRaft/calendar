@@ -39,7 +39,7 @@ class Event:
 	def hour_duration_decimal(self):
 		return self.end_hour_decimal() - self.start_hour_decimal()
 
-	def summary(self):
+	def text(self):
 		return self.event['summary']
 
 	def __repr__(self):
@@ -49,6 +49,7 @@ class Event:
 		d = {
 			'hour_duration': self.hour_duration_decimal(),
 			'start_hour_decimal': self.start_hour_decimal(),
-			'day': self.start_datetime().day,
+			'weekday': self.start_datetime().weekday(),
+			'text': self.text(),
 		}
 		return d

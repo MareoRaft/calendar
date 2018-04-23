@@ -43,17 +43,16 @@ class Socket { // manually extend WebSocket, because WebSocket didn't want to us
 /////////////////// FUNCTIONS ///////////////////
 
 function drawEvent(event) {
-	let day = event['day']
+	let weekday = event['weekday']
 	let top = event['start_hour_decimal'] * HOUR_HEIGHT
 	let height = event['hour_duration'] * HOUR_HEIGHT
-	alert(top)
+	let text = event['text']
 
 	// do some day logic here
-	let day_id = 'day' + day
-
+	let weekday_id = 'weekday' + weekday
 	// add to HTML
-	let $event = $('<div/>', {class: 'event', text: 'Go to Google!'})
-	$event.appendTo('#' + day_id)
+	let $event = $('<div/>', {class: 'event', text: text})
+	$event.appendTo('#' + weekday_id)
 	$event.css('top', '' + top + 'px')
 	$event.css('height', '' + height + 'px')
 }
