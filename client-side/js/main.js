@@ -4,7 +4,10 @@
 //////////////////// GLOBALS ////////////////////
 let socket = undefined
 let HOUR_HEIGHT = 54
-let PRIVACY = true
+let PRIVACY = false
+let dayshift = 0
+let events = []
+let NUM_DAYS_TO_SHIFT = 1
 
 
 //////////////////// CLASSES ////////////////////
@@ -41,32 +44,88 @@ class Socket { // manually extend WebSocket, because WebSocket didn't want to us
 }
 
 
-/////////////////// FUNCTIONS ///////////////////
+/////////////////// DRAW FUNCTIONS ///////////////////
+// all of the draw functions also ERASE/REPLACE previously things drawn
+function drawWeekday(datetime, slot_num) {
+	// slot_num is the number of the column where to draw the weekday and daynumber in month
+	let weekday = datetime.getWeekdayName()
+	let weekday_short = weekday.slice(0, 3)
+	let day_num = datetime.getDate()
+	let weekday_slug = weekday_short + ' ' + day_num
+	// put the info in the slot
+	let id = "weekday-slot-" + slot_num
+	$('#' + id).html(weekday_slug)
+}
+
+function drawWeekdays(dayshift=0) {
+	for (let daychange = 0; daychange < 7; daychange++) {
+		// we are using Date.js (www.datejs.com) to shift the day
+		date = Date.today().add({ days: dayshift + daychange })
+		drawWeekday(date, daychange)
+	}
+}
 
 function drawEvent(event) {
+	// TODO: verify that event falls in the correct timeframe!
 	let weekday = event['weekday']
 	let top = event['start_hour_decimal'] * HOUR_HEIGHT
 	let height = event['hour_duration'] * HOUR_HEIGHT
 	let text = PRIVACY? 'busy': event['text']
 
 	// do some day logic here
-	let weekday_id = 'weekday' + weekday
+	let weekday_id = 'weekday-' + weekday
 	// add to HTML
 	let $event = $('<div/>', {class: 'event', text: text})
-	$event.appendTo('#' + weekday_id)
+	$('#' + weekday_id).append($event)
 	$event.css('top', '' + top + 'px')
 	$event.css('height', '' + height + 'px')
 }
 
+function drawEvents(events) {
+	// erase events already on calendar
+	$('.content-of-weekday').html('')
+	// draw each event on the calendar
+	for (event of events) {
+		drawEvent(event)
+	}
+}
+
+function drawCalendar(events, dayshift=0) {
+	// draw the month and year
+
+	// TODO:
+	// get NOW
+	// add dayshift
+	// retrieve month and year
+	// update .month-and-year
+
+	// draw days of week on calendar
+	drawWeekdays(dayshift)
+	drawEvents(events)
+}
+
+/////////////////// OTHER FUNCTIONS ///////////////////
 function onmessage(dic) {
 	command	= dic['command']
 	if (command === 'co') {
-		// draw each event on the calendar
 		events = dic['events']
-		for (event of events) {
-			drawEvent(event)
-		}
+		drawCalendar(events, dayshift)
 	}
+}
+
+function on_shift(direction) {
+	dayshift += direction * NUM_DAYS_TO_SHIFT
+	drawCalendar(events, dayshift)
+}
+
+function on_left_shift() {
+	direction = -1
+	on_shift(direction)
+}
+
+function on_right_shift() {
+	direction = 1
+	on_shift(direction)
 }
 
 function initGlobals() {
@@ -75,4 +134,6 @@ function initGlobals() {
 
 $(document).ready(function(){
 	initGlobals()
+	$('#shift-left').click(on_left_shift)
+	$('#shift-right').click(on_right_shift)
 })

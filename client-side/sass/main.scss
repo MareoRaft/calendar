@@ -47,6 +47,9 @@ header {
 	z-index: 2;
 	background-color: white; /* solid background color to cover up the #header-backdrop */
 }
+#header table {
+	width: 100%;
+}
 .month-and-year {
 	font-size: 30px;
 	padding: 9px;
@@ -54,6 +57,16 @@ header {
 }
 .year {
 	font-weight: 100; /* to make font thin */
+}
+.shift {
+	padding: 9px;
+	padding-right: 14px;
+	text-align: right;
+}
+.shift img {
+	$dim: 30px;
+	width: $dim;
+	height: $dim;
 }
 .days-of-week {
 	width: 100%;

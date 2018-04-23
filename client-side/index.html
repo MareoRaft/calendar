@@ -5,6 +5,8 @@
 	<title>Schedule</title>
 	<link rel="stylesheet" href="css-built/main.css">
 	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/date.js"></script>
+	<script src="js/date_extend.js"></script>
 	<script src="js/main.js"></script>
 </head>
 <body>
@@ -29,20 +31,30 @@
 		</div>
 	</header>
 	<header id="header">
-		<div class="month-and-year"><span class="month">April </span><span class="year">2018</span></div>
+		<table>
+			<tr>
+				<td class="month-and-year">
+					<span class="month">April </span><span class="year">2018</span>
+				</td>
+				<td class="shift">
+					<img id='shift-left' src='images/left-arrow.png' alt='shift left'>
+					<img id='shift-right' src='images/right-arrow.png' alt='shift right'>
+				</td>
+			</tr>
+		</table>
 		<div class="wrapper">
 			<div class="left-gutter"></div>
 			<div class="main-container">
 				<table class="days-of-week">
 					<!-- One column per day or week -->
 					<tr>
-						<td>Mon</td>
-						<td>Tue</td>
-						<td>Wed</td>
-						<td>Thu</td>
-						<td>Fri</td>
-						<td>Sat</td>
-						<td>Sun</td>
+						<td id="weekday-slot-0"></td>
+						<td id="weekday-slot-1"></td>
+						<td id="weekday-slot-2"></td>
+						<td id="weekday-slot-3"></td>
+						<td id="weekday-slot-4"></td>
+						<td id="weekday-slot-5"></td>
+						<td id="weekday-slot-6"></td>
 					</tr>
 				</table>
 			</div>
@@ -269,13 +281,13 @@
 			<table id="content-of-week" class="content-of-week">
 				<!-- One column per day or week -->
 				<tr>
-					<td id="weekday0"></td>
-					<td id="weekday1"></td>
-					<td id="weekday2"></td>
-					<td id="weekday3"></td>
-					<td id="weekday4"></td>
-					<td id="weekday5"></td>
-					<td id="weekday6"></td>
+					<td id="weekday-0" class="content-of-weekday"></td>
+					<td id="weekday-1" class="content-of-weekday"></td>
+					<td id="weekday-2" class="content-of-weekday"></td>
+					<td id="weekday-3" class="content-of-weekday"></td>
+					<td id="weekday-4" class="content-of-weekday"></td>
+					<td id="weekday-5" class="content-of-weekday"></td>
+					<td id="weekday-6" class="content-of-weekday"></td>
 				</tr>
 			</table>
 		</div>
