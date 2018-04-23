@@ -20,7 +20,7 @@ body {
     flex-flow: row nowrap;
     justify-content: space-between;
 }
-$left-gutter-width: 51px;
+$left-gutter-width: 61px;
 .left-gutter {
     min-width: $left-gutter-width;
     width: $left-gutter-width;
@@ -49,8 +49,8 @@ header {
 }
 .month-and-year {
 	font-size: 30px;
-	padding: 6px;
-	padding-left: 9px;
+	padding: 9px;
+	padding-left: 14px;
 }
 .year {
 	font-weight: 100; /* to make font thin */
@@ -69,7 +69,7 @@ header {
 #content-of-week-wrapper {
 }
 #times-gutter {
-	color: #C4C4C4;
+	color: #C1C1C1;
 }
 #times-gutter > table{
 	width: 100%;

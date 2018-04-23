@@ -4,6 +4,7 @@
 //////////////////// GLOBALS ////////////////////
 let socket = undefined
 let HOUR_HEIGHT = 54
+let PRIVACY = true
 
 
 //////////////////// CLASSES ////////////////////
@@ -46,7 +47,7 @@ function drawEvent(event) {
 	let weekday = event['weekday']
 	let top = event['start_hour_decimal'] * HOUR_HEIGHT
 	let height = event['hour_duration'] * HOUR_HEIGHT
-	let text = event['text']
+	let text = PRIVACY? 'busy': event['text']
 
 	// do some day logic here
 	let weekday_id = 'weekday' + weekday
