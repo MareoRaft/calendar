@@ -1,11 +1,17 @@
 @import 'reset';
 
+
+/* GLOBAL THINGS */
+$hour-height: 54px;
 html {
+	width: 100%;
 	font-family: -apple-system, Helvetica, Arial, sans-serif;
+	color: black;
 }
 body {
 	width: 100%;
 }
+
 
 /* WRAPPER PATTERN */
 .wrapper {
@@ -14,93 +20,99 @@ body {
     flex-flow: row nowrap;
     justify-content: space-between;
 }
+$left-gutter-width: 51px;
 .left-gutter {
-    min-width: 51px;
-    width: 51px;
+    min-width: $left-gutter-width;
+    width: $left-gutter-width;
     padding-right: 5px;
 	font-size: smaller;
 }
 .main-container {
 	width: 100%;
-	position: relative; /* classifies position as 'non static', but doesn't change anything since we haven't set left or top */
+	position: relative; /* allows children to be position 'absolute' relative to this container */
 }
 
 
 /* HEADER */
-#header-backdrop {
+header {
 	width: 100%;
-	background-color: purple;
+}
+#header-backdrop {
+	opacity: 0;
+	color: transparent;
 }
 #header {
 	position: fixed;
 	top: 0px;
-	width: 100%;
 	z-index: 2;
-	background-color: pink;
+	background-color: white; /* solid background color to cover up the #header-backdrop */
 }
-#month-and-year {
+.month-and-year {
 	font-size: 30px;
 	padding: 6px;
 	padding-left: 9px;
 }
-#days-of-week {
-	width: 100%;
-	background-color: green;
-	color: white;
-	table-layout: fixed; /* for equal horizontal spacing */
+.year {
+	font-weight: 100; /* to make font thin */
 }
-#days-of-week td {
+.days-of-week {
+	width: 100%;
+	table-layout: fixed; /* for equal horizontal spacing */
+	color: #333;
+}
+.days-of-week td {
 	text-align: center;
 }
+
 
 /* CONTENT */
 #content-of-week-wrapper {
 }
 #times-gutter {
-	background-color: yellow;
-	color: black;
+	color: #C4C4C4;
 }
 #times-gutter > table{
 	width: 100%;
 }
 #times-gutter td {
-	height: 54px;
+	height: $hour-height;
 	text-align: right;
 }
 .content-of-week {
-	position: absolute; /* parent element should be non-static, so it should get positioned to 0,0 relative to it's parent */
+	position: absolute; /* parent element is non-static, so this gets positioned to 0,8 relative to it's parent */
+	top: 8px; /* budge down slightly to align with the first typed hour '12 AM' */
 	left: 0px;
-	top: 8px;
 	width: 100%;
 	height: 100%;
 	table-layout: fixed; /* for equal horizontal spacing */
 }
 #content-of-week-backdrop {
-	background-color: blue;
 }
+$hour-line-color: black;
 #content-of-week-backdrop .hour {
-	height: 54px;
-	border-top: 1px solid #ccc;
+	height: $hour-height;
+	border-top: 1px solid $hour-line-color;
+}
+#content-of-week-backdrop .last-hour {
+	height: calc($hour-height + 1px); /* extra pixel for the bottom border */
+	border-bottom: 1px solid $hour-line-color;
 }
 #content-of-week {
-	/*background-color: red;*/
-	z-index: 1; /* maybe NOT necessary */
-	opacity: 0.6;
-	color: white;
+	z-index: 1; /* not necessary, but guarantees that #content-of-week appears above #content-of-week-backdrop */
+	opacity: 0.9;
 }
 #content-of-week td {
 	position: relative; /* so events can be absolutely positioned relative to this */
+	padding: 0px 1px; /* so events horizontally next to each other don't touch */
+	background-color: white; /* by some insane glitch, the padding doesn't work unless a background color is set and not transparent */
 }
 .event {
 	position: absolute;
 	width: 100%;
-	word-break: break-all;
+	padding: 6px;
 	overflow: hidden; /* 'scroll' or 'hidden' depending on browser */
+	word-break: break-all;
 	font-size: smaller;
-	background-color: green;
-	color: white;
-}
-#my-event {
-	top: 200px;
-	height: 150px;
+	background-color: #DAF2D3;
+	color: #008A16;
 }

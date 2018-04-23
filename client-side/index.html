@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>Schedule</title>
 	<link rel="stylesheet" href="css-built/main.css">
 	<script src="js/lib/jquery.js"></script>
-	<!-- <script src="server-talk.js"></script> -->
 	<script src="js/main.js"></script>
 </head>
 <body>
-	<header id="header-backdrop">
-		<div id="month-and-year">April 2018</div>
-		<div id="days-of-week-wrapper" class="wrapper">
+	<header id="header-backdrop"><!-- This exists as an "identical copy" of the header, the purpose being that it should have the same SIZE/DIMENSIONS as the real header.  This is to achieve the sticky-header effect. -->
+		<div class="month-and-year">A</div>
+		<div class="wrapper">
 			<div class="left-gutter"></div>
 			<div class="main-container">
-				<table id="days-of-week">
+				<table class="days-of-week">
 					<!-- One column per day or week -->
 					<tr>
 						<td>Mon</td>
@@ -30,11 +29,11 @@
 		</div>
 	</header>
 	<header id="header">
-		<div id="month-and-year">April 2018</div>
-		<div id="days-of-week-wrapper" class="wrapper">
+		<div class="month-and-year"><span class="month">April </span><span class="year">2018</span></div>
+		<div class="wrapper">
 			<div class="left-gutter"></div>
 			<div class="main-container">
-				<table id="days-of-week">
+				<table class="days-of-week">
 					<!-- One column per day or week -->
 					<tr>
 						<td>Mon</td>
@@ -107,7 +106,7 @@
 						<div class="hour"></div>
 						<div class="hour"></div>
 						<div class="hour"></div>
-						<div class="hour"></div>
+						<div class="hour last-hour"></div>
 					</td>
 					<td><!--Tuesday-->
 						<div class="hour"></div>
@@ -133,27 +132,149 @@
 						<div class="hour"></div>
 						<div class="hour"></div>
 						<div class="hour"></div>
-						<div class="hour"></div>
+						<div class="hour last-hour"></div>
 					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><!--Wednesday-->
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour last-hour"></div>
+					</td>
+					<td><!--Thursday-->
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour last-hour"></div>
+					</td>
+					<td><!--Friday-->
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour last-hour"></div>
+					</td>
+					<td><!--Saturday-->
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour last-hour"></div>
+					</td>
+					<td><!--Sunday-->
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour"></div>
+						<div class="hour last-hour"></div>
+					</td>
 				</tr>
 			</table>
 			<table id="content-of-week" class="content-of-week">
 				<!-- One column per day or week -->
 				<tr>
-					<td id="weekday0"><!--Monday-->
-					</td>
+					<td id="weekday0"></td>
 					<td id="weekday1"></td>
 					<td id="weekday2"></td>
 					<td id="weekday3"></td>
 					<td id="weekday4"></td>
-					<td id="weekday5">
-						<div id="my-event" class="event">Event ywegri  another anotherrrrrrrrrrr </div>
-					</td>
+					<td id="weekday5"></td>
 					<td id="weekday6"></td>
 				</tr>
 			</table>
