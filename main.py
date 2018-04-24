@@ -11,11 +11,9 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	for cal_name in cal_names:
 		cal_id = CAL_NAME_TO_ID[cal_name]
 		now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-		in_one_week = (datetime.datetime.utcnow() + datetime.timedelta(weeks=1)).isoformat() + 'Z'
 		eventsResult = service.events().list(
 			calendarId=cal_id,
 			timeMin=now,
-			timeMax=in_one_week,
 			maxResults=MAX_RESULTS_PER_CALENDAR,
 			singleEvents=True,
 			orderBy='startTime'
