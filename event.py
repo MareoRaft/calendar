@@ -22,6 +22,11 @@ class Event:
 		dt = string_to_datetime(dt_str)
 		return dt
 
+	def start_date_string_for_javascript(self):
+		date = self.start_datetime().date()
+		string = date.isoformat()
+		return string
+
 	def start_hour_decimal(self):
 		return hour_decimal(self.start_datetime())
 
@@ -51,5 +56,6 @@ class Event:
 			'start_hour_decimal': self.start_hour_decimal(),
 			'weekday': self.start_datetime().weekday(),
 			'text': self.text(),
+			'date': self.start_date_string_for_javascript(),
 		}
 		return d

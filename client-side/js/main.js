@@ -46,6 +46,26 @@ class Socket { // manually extend WebSocket, because WebSocket didn't want to us
 
 /////////////////// DRAW FUNCTIONS ///////////////////
 // all of the draw functions also ERASE/REPLACE previously things drawn
+function drawMonthAndYear(dayshift=0) {
+	let date = Date.today().add({ days: dayshift })
+	// retrieve month and year
+	let month_name = date.getMonthName()
+	let year_string = '' + date.getFullYear()
+	// update month and year
+	$('.month').html(month_name + ' ')
+	$('.year').html(year_string)
+}
+
+function getWeekdatesToDraw(dayshift=0) {
+	let weekdates = []
+	for (let daychange = 0; daychange < 7; daychange++) {
+		// we are using Date.js (www.datejs.com) to shift the day
+		let date = Date.today().add({ days: dayshift + daychange })
+		weekdates.push(date)
+	}
+	return weekdates
+}
+
 function drawWeekday(datetime, slot_num) {
 	// slot_num is the number of the column where to draw the weekday and daynumber in month
 	let weekday = datetime.getWeekdayName()
@@ -58,50 +78,51 @@ function drawWeekday(datetime, slot_num) {
 }
 
 function drawWeekdays(dayshift=0) {
-	for (let daychange = 0; daychange < 7; daychange++) {
-		// we are using Date.js (www.datejs.com) to shift the day
-		date = Date.today().add({ days: dayshift + daychange })
-		drawWeekday(date, daychange)
+	let weekdates_to_draw = getWeekdatesToDraw(dayshift)
+	for (let index in weekdates_to_draw) {
+		let date = weekdates_to_draw[index]
+		drawWeekday(date, index)
 	}
 }
 
-function drawEvent(event) {
-	// TODO: verify that event falls in the correct timeframe!
-	let weekday = event['weekday']
-	let top = event['start_hour_decimal'] * HOUR_HEIGHT
-	let height = event['hour_duration'] * HOUR_HEIGHT
-	let text = PRIVACY? 'busy': event['text']
-
-	// do some day logic here
-	let weekday_id = 'weekday-' + weekday
-	// add to HTML
-	let $event = $('<div/>', {class: 'event', text: text})
-	$('#' + weekday_id).append($event)
-	$event.css('top', '' + top + 'px')
-	$event.css('height', '' + height + 'px')
+function drawEvent(event, dayshift) {
+	// verify that event falls in the correct timeframe!
+	let weekdates_to_draw = getWeekdatesToDraw(dayshift)
+	let event_date = Date.parse(event['date'])
+	// IF the events are in order, THEN we can do this MORE EFFICIENTLY than we are doing it now:
+	for (let index in weekdates_to_draw) {
+		let weekdate = weekdates_to_draw[index]
+		// if (dayshift == 2) alert(weekdate)
+		// if (dayshift == 2) alert(event_date)
+		if (weekdate.equals(event_date)) {
+			// if (dayshift == 2) alert('EQUAL')
+			let top = event['start_hour_decimal'] * HOUR_HEIGHT
+			let height = event['hour_duration'] * HOUR_HEIGHT
+			let text = PRIVACY? 'busy': event['text']
+			// add to HTML
+			let insertion_id = 'weekday-' + index
+			let $event = $('<div/>', {class: 'event', text: text})
+			$('#' + insertion_id).append($event)
+			$event.css('top', '' + top + 'px')
+			$event.css('height', '' + height + 'px')
+			break
+		}
+	}
 }
 
-function drawEvents(events) {
+function drawEvents(events, dayshift=0) {
 	// erase events already on calendar
 	$('.content-of-weekday').html('')
 	// draw each event on the calendar
 	for (event of events) {
-		drawEvent(event)
+		drawEvent(event, dayshift)
 	}
 }
 
 function drawCalendar(events, dayshift=0) {
-	// draw the month and year
-
-	// TODO:
-	// get NOW
-	// add dayshift
-	// retrieve month and year
-	// update .month-and-year
-
-	// draw days of week on calendar
+	drawMonthAndYear(dayshift)
 	drawWeekdays(dayshift)
-	drawEvents(events)
+	drawEvents(events, dayshift)
 }
 
 /////////////////// OTHER FUNCTIONS ///////////////////
@@ -109,23 +130,31 @@ function onmessage(dic) {
 	command	= dic['command']
 	if (command === 'co') {
 		events = dic['events']
+		let last_event = events[events.length - 1]
+		let last_date = Date.parse(last_event['date'])
+		alert(last_date)
 		drawCalendar(events, dayshift)
 	}
 }
 
-function on_shift(direction) {
+function onshift(direction) {
 	dayshift += direction * NUM_DAYS_TO_SHIFT
 	drawCalendar(events, dayshift)
 }
 
-function on_left_shift() {
+function onleftshift() {
 	direction = -1
-	on_shift(direction)
+	onshift(direction)
 }
 
-function on_right_shift() {
+function onrightshift() {
 	direction = 1
-	on_shift(direction)
+	onshift(direction)
+}
+
+function initTriggers() {
+	$('#shift-left').click(onleftshift)
+	$('#shift-right').click(onrightshift)
 }
 
 function initGlobals() {
@@ -134,6 +163,5 @@ function initGlobals() {
 
 $(document).ready(function(){
 	initGlobals()
-	$('#shift-left').click(on_left_shift)
-	$('#shift-right').click(on_right_shift)
+	initTriggers()
 })
