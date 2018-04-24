@@ -27,7 +27,7 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# return
 	return events
 
-def output(out_format='html')
+def output(out_format='html'):
 	if out_format == 'svg':
 		from cal_svg import init_drawing, draw_calendar
 		d = init_drawing()
@@ -37,15 +37,12 @@ def output(out_format='html')
 		# jinja me timbers
 		pass
 
-def update_events():
-	events = get_events(service, cal_names=['Away', 'Home'])
-
 def main():
 	# setup
 	global service
 	service = get_service()
 	global events
-	update_events()
+	events = get_events(service, cal_names=['Away', 'Home'])
 	# output
 	output()
 

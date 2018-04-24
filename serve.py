@@ -14,7 +14,7 @@ from tornado.log import enable_pretty_logging
 
 from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH
 from helpers import get_service
-from main import get_events, update_events
+from main import get_events
 
 
 class SocketHandler (WebSocketHandler):
@@ -23,7 +23,7 @@ class SocketHandler (WebSocketHandler):
 	def open(self):
 		print('websocket opened!')
 		# make sure events are up-to-date
-		update_events()
+		events = get_events(service, cal_names=['Away', 'Home'])
 		# send them events
 		js_events = [e.as_dict_for_javascript() for e in events]
 		self.write_message({
@@ -58,7 +58,7 @@ class JSSocketHandler (RequestHandler):
 
 
 	def get(self):
-		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "socket.js"), host=self.request.host)
+		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/socket.js"), host=self.request.host)
 
 
 def make_app():
@@ -80,11 +80,9 @@ def server_kickoff():
 	IOLoop.current().start()
 
 def main():
-	# get calendar info
+	# setup
 	global service
 	service = get_service()
-	global events
-	update_events()
 	# kickoff server
 	server_kickoff()
 
