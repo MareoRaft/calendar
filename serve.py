@@ -12,39 +12,9 @@ from tornado.web import url
 from tornado.ioloop import IOLoop
 from tornado.log import enable_pretty_logging
 
-from helpers import get_credentials, get_service
-from event import Event
-
-CLIENT_SIDE_DIRECTORY_PATH = "client-side/"
-PORT_NUMBER = 8811
-MAX_RESULTS_PER_CALENDAR = 200
-CAL_NAME_TO_ID = {
-	'Away': 'e2r5nqkil48kbshsql3ke1c61c@group.calendar.google.com',
-	'Events': 'mf1urita2cmb4omf980ibv7bp4@group.calendar.google.com',
-	'Home': 'gtbqdl9o6cpntqvlgnjbr6k00c@group.calendar.google.com',
-}
-
-def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
-	# get events
-	events = []
-	for cal_name in cal_names:
-		cal_id = CAL_NAME_TO_ID[cal_name]
-		now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-		in_one_week = (datetime.datetime.utcnow() + datetime.timedelta(weeks=1)).isoformat() + 'Z'
-		eventsResult = service.events().list(
-			calendarId=cal_id,
-			timeMin=now,
-			timeMax=in_one_week,
-			maxResults=MAX_RESULTS_PER_CALENDAR,
-			singleEvents=True,
-			orderBy='startTime'
-		).execute()
-		events += eventsResult.get('items', [])
-	events = [Event(e) for e in events]
-	# order events
-	events = sorted(events, key=lambda e: e.start_datetime())
-	# return
-	return events
+from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH
+from helpers import get_service
+from main import get_events, update_events
 
 
 class SocketHandler (WebSocketHandler):
@@ -52,6 +22,8 @@ class SocketHandler (WebSocketHandler):
 
 	def open(self):
 		print('websocket opened!')
+		# make sure events are up-to-date
+		update_events()
 		# send them events
 		js_events = [e.as_dict_for_javascript() for e in events]
 		self.write_message({
@@ -93,7 +65,7 @@ def make_app():
 	return Application(
 		[
 			url(r'/mySocket', SocketHandler, {} , name = "a"),
-			url(r'/socket\.js', JSSocketHandler, {}, name = "b"),
+			url(r'/js/socket\.js', JSSocketHandler, {}, name = "b"),
 			url(r'/?', RedirectHandler, { "url": "index.html" }),
 			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }) # captures anything at all, and serves it as a static file. simple!
 		],
@@ -101,17 +73,20 @@ def make_app():
 		debug = True,
 	)
 
+def server_kickoff():
+	enable_pretty_logging()
+	application = make_app()
+	application.listen(PORT_NUMBER)
+	IOLoop.current().start()
+
 def main():
 	# get calendar info
 	global service
 	service = get_service()
 	global events
-	events = get_events(service, cal_names=['Away', 'Home'])
+	update_events()
 	# kickoff server
-	enable_pretty_logging()
-	application = make_app()
-	application.listen(PORT_NUMBER)
-	IOLoop.current().start()
+	server_kickoff()
 
 if __name__ == "__main__":
 	main()

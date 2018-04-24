@@ -64,9 +64,15 @@ header {
 	text-align: right;
 }
 .shift img {
-	$dim: 30px;
-	width: $dim;
-	height: $dim;
+	height: 30px;
+	filter: grayscale(100%);
+	opacity: 0.5;
+}
+.shift img:hover {
+	opacity: 1;
+}
+#shift-left {
+	transform: rotate(180deg);
 }
 .days-of-week {
 	width: 100%;

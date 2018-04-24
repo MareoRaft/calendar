@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 import datetime
-import json
 
-from helpers import get_credentials, get_service
+from config import CAL_NAME_TO_ID, MAX_RESULTS_PER_CALENDAR
+from helpers import get_service
 from event import Event
-
-CAL_NAME_TO_ID = {
-	'Away': 'e2r5nqkil48kbshsql3ke1c61c@group.calendar.google.com',
-	'Events': 'mf1urita2cmb4omf980ibv7bp4@group.calendar.google.com',
-	'Home': 'gtbqdl9o6cpntqvlgnjbr6k00c@group.calendar.google.com',
-}
-MAX_RESULTS_PER_CALENDAR = 200
 
 def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# get events
@@ -34,17 +27,27 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# return
 	return events
 
-def main(output='html'):
-	service = get_service()
-	events = get_events(service, cal_names=['Away', 'Home'])
-	if output == 'svg':
+def output(out_format='html')
+	if out_format == 'svg':
 		from cal_svg import init_drawing, draw_calendar
 		d = init_drawing()
 		draw_calendar(d, events)
 		d.savePng('cal.png')
-	elif output == 'html':
+	elif out_format == 'html':
 		# jinja me timbers
 		pass
+
+def update_events():
+	events = get_events(service, cal_names=['Away', 'Home'])
+
+def main():
+	# setup
+	global service
+	service = get_service()
+	global events
+	update_events()
+	# output
+	output()
 
 if __name__ == '__main__':
 	main()

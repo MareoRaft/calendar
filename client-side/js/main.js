@@ -132,7 +132,7 @@ function onmessage(dic) {
 		events = dic['events']
 		let last_event = events[events.length - 1]
 		let last_date = Date.parse(last_event['date'])
-		alert(last_date)
+		// alert(last_date)
 		drawCalendar(events, dayshift)
 	}
 }
