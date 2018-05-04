@@ -25,3 +25,5 @@ http://edbrowse.org
   * You will need a secrets file which Google will provide to you.
   * You will need a JavaScript enabled browser in order to grant access.  * You need Tornado installed since this is setup to run on the tornado server framework.  But the code could be easily altered to work on what you are comfortable with, such as Flask or Django.  If somebody requests the feature, I would be willing to rewrite everything in JavaScript so that no server is needed.
   * To build the CSS file from the SASS file, use compass or compass-for-gulp
+  * Finally, run server with ./main.py.  Point browser to appropriate address.
+  
