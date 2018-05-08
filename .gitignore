@@ -6,6 +6,8 @@ client_secret.json
 node_modules/
 .sass-cache/
 css-built/
+leo-google*
+quickstart.html
 
 
 ### Python ###
@@ -25,7 +27,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
