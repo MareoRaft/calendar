@@ -9,6 +9,7 @@ css-built/
 leo-google*
 quickstart.html
 package-lock.json
+ignore/
 
 
 ### Python ###

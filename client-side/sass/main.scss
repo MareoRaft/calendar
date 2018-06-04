@@ -64,14 +64,14 @@ header {
 	text-align: right;
 }
 .shift img {
-	height: 30px;
+	height: 20px;
 	filter: grayscale(100%);
 	opacity: 0.5;
 }
 .shift img:hover {
 	opacity: 1;
 }
-#shift-left {
+#shift-right {
 	transform: rotate(180deg);
 }
 .days-of-week {
