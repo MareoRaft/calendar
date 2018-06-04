@@ -8,6 +8,7 @@ node_modules/
 css-built/
 leo-google*
 quickstart.html
+package-lock.json
 
 
 ### Python ###
