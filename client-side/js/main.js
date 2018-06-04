@@ -1,10 +1,11 @@
+//This is a TEMPLATE (notice the "{{privacy}}" variable drop-in).
 // once we finish writing in python, we will then translate that to JS, so that a new request to the server won't need to be made every time the user wants to view more info on the calendar.
 // Define websocket to be used for server interaction
 
 //////////////////// GLOBALS ////////////////////
 let socket = undefined
 let HOUR_HEIGHT = 54
-let PRIVACY = false
+let PRIVACY = {{privacy}}
 let dayshift = 0
 let events = []
 let NUM_DAYS_TO_SHIFT = 1

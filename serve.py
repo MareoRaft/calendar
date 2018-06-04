@@ -12,7 +12,7 @@ from tornado.web import url
 from tornado.ioloop import IOLoop
 from tornado.log import enable_pretty_logging
 
-from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH
+from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY
 from helpers import get_service
 from main import get_events
 
@@ -61,11 +61,20 @@ class JSSocketHandler (RequestHandler):
 		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/socket.js"), host=self.request.host)
 
 
+class JSMainHandler (RequestHandler):
+	""" This is to render main.js, passing in config options """
+
+
+	def get(self):
+		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/main.js"), privacy=PRIVACY)
+
+
 def make_app():
 	return Application(
 		[
 			url(r'/mySocket', SocketHandler, {} , name = "a"),
 			url(r'/js/socket\.js', JSSocketHandler, {}, name = "b"),
+			url(r'/js/main\.js', JSMainHandler, {}, name = "c"),
 			url(r'/?', RedirectHandler, { "url": "index.html" }),
 			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }) # captures anything at all, and serves it as a static file. simple!
 		],
