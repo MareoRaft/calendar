@@ -42,4 +42,17 @@ look into: https://calendly.com/invitee_signup?invitee_uuid=DFDMQZIA2FYOBWPT
   7. install Google API client with `python3 /usr/bin/pip install --upgrade google-api-python-client` or similar.
   8. Finally, run server with `./main.py`.  Point browser to appropriate address.
   
->>>>>>> e0d17324d6e9b4b683be3296e2cb2141c4c9c2f9
+## newfound success 1
+Instead of trying to install a command line browser with javascript (basically impossible), install a GUI on the server (LXDE, or GNOME) and then connect to it via VNC.  Use Firefox.
+
+    LXDE environment
+
+## possible easier success
+After installing, I got the message
+
+    If your browser is on a different machine then exit and re-run this application with the command-line parameter
+
+    --noauth_local_webserver
+
+So yeah, that may do it.
+
