@@ -27,7 +27,7 @@ class SocketHandler (WebSocketHandler):
 		# send them events
 		js_events = [e.as_dict_for_javascript() for e in events]
 		self.write_message({
-			'command': 'co',
+			'command': 'populate-events',
 			'events': js_events,
 		})
 

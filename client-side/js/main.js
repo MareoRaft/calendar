@@ -95,7 +95,7 @@ function drawCalendar(events, dayshift=0) {
 /////////////////// OTHER FUNCTIONS ///////////////////
 function onmessage(dic) {
 	command	= dic['command']
-	if (command === 'co') {
+	if (command === 'populate-events') {
 		events = dic['events']
 		let last_event = events[events.length - 1]
 		let last_date = Date.parse(last_event['date'])
@@ -130,5 +130,7 @@ function initGlobals() {
 
 $(document).ready(function(){
 	initGlobals()
+	// preliminary calendar drawing (without events)
+	drawCalendar(events)
 	initTriggers()
 })
