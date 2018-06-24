@@ -75,7 +75,7 @@ def make_app():
 			url(r'/mySocket', SocketHandler),
 			url(r'/js/socket\.js', JSSocketHandler),
 			url(r'/js/main\.js', JSMainHandler),
-			url(r'/?', RedirectHandler, { "url": "index.html#7am" }),
+			url(r'/?', RedirectHandler, { "url": "index.html" }),
 			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }) # captures anything at all, and serves it as a static file. simple!
 		],
 		#settings
