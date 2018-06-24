@@ -72,10 +72,10 @@ class JSMainHandler (RequestHandler):
 def make_app():
 	return Application(
 		[
-			url(r'/mySocket', SocketHandler, {} , name = "a"),
-			url(r'/js/socket\.js', JSSocketHandler, {}, name = "b"),
-			url(r'/js/main\.js', JSMainHandler, {}, name = "c"),
-			url(r'/?', RedirectHandler, { "url": "index.html" }),
+			url(r'/mySocket', SocketHandler),
+			url(r'/js/socket\.js', JSSocketHandler),
+			url(r'/js/main\.js', JSMainHandler),
+			url(r'/?', RedirectHandler, { "url": "index.html#7am" }),
 			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }) # captures anything at all, and serves it as a static file. simple!
 		],
 		#settings
