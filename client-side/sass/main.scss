@@ -58,6 +58,20 @@ header {
 .year {
 	font-weight: 100; /* to make font thin */
 }
+.status {
+	vertical-align: middle;
+}
+$status-background-color: red;
+.status-message {
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	border: 4px solid;
+	border-radius: 8px;
+	border-color: $status-background-color;
+	background-color: $status-background-color;
+	color: white;
+}
 .shift {
 	padding: 9px;
 	padding-right: 14px;

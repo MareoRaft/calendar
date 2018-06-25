@@ -86,20 +86,26 @@ function drawEvents(events, dayshift=0) {
 	}
 }
 
+function drawStatus(events) {
+	if (events.length > 0) {
+		// hide the 'loading' icon
+		$('.status-message').hide()
+	}
+}
+
 function drawCalendar(events, dayshift=0) {
 	drawMonthAndYear(dayshift)
 	drawWeekdays(dayshift)
 	drawEvents(events, dayshift)
+	drawStatus(events)
 }
+
 
 /////////////////// OTHER FUNCTIONS ///////////////////
 function onmessage(dic) {
 	command	= dic['command']
 	if (command === 'populate-events') {
 		events = dic['events']
-		let last_event = events[events.length - 1]
-		let last_date = Date.parse(last_event['date'])
-		// alert(last_date)
 		drawCalendar(events, dayshift)
 	}
 }
