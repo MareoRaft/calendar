@@ -12,9 +12,9 @@ from tornado.web import url
 from tornado.ioloop import IOLoop
 from tornado.log import enable_pretty_logging
 
-from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY
+from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY, SHOW_WEATHER_TEXT
 from helpers import get_service
-from main import get_events
+from main import get_events, get_weather
 
 
 class SocketHandler (WebSocketHandler):
@@ -22,6 +22,11 @@ class SocketHandler (WebSocketHandler):
 
 	def open(self):
 		print('websocket opened!')
+		weather = get_weather()
+		self.write_message({
+			'command': 'populate-weather',
+			'data': weather,
+		})
 		# make sure events are up-to-date
 		events = get_events(service, cal_names=['Away', 'Home'])
 		# send them events
@@ -66,7 +71,7 @@ class JSMainHandler (RequestHandler):
 
 
 	def get(self):
-		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/main.js"), privacy=PRIVACY)
+		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/main.js"), privacy=PRIVACY, show_weather_text=SHOW_WEATHER_TEXT)
 
 
 def make_app():

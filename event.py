@@ -52,6 +52,7 @@ class Event:
 
 	def as_dict_for_javascript(self):
 		d = {
+			'class': 'calendar-event',
 			'hour_duration': self.hour_duration_decimal(),
 			'start_hour_decimal': self.start_hour_decimal(),
 			'weekday': self.start_datetime().weekday(),

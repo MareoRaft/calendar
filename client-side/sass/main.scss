@@ -140,13 +140,21 @@ $hour-line-color: black;
 	padding: 0px 1px; /* so events horizontally next to each other don't touch */
 	background-color: white; /* by some insane glitch, the padding doesn't work unless a background color is set and not transparent */
 }
-.event {
+.block {
 	position: absolute;
 	width: 100%;
 	padding: 6px;
 	overflow: hidden; /* 'scroll' or 'hidden' depending on browser */
 	word-break: break-all;
 	font-size: smaller;
+}
+.event {
+	@extend .block;
 	background-color: #DAF2D3;
 	color: #008A16;
 }
+.forecast {
+	@extend .block;
+	/* colors and opacity populated by javascript */
+}
+

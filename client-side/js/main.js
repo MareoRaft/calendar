@@ -6,9 +6,24 @@
 let socket = undefined
 let HOUR_HEIGHT = 54
 let PRIVACY = {{privacy}}
+let SHOW_WEATHER_TEXT = {{show_weather_text}}
 let dayshift = 0
+let forecasts = []
 let events = []
 let NUM_DAYS_TO_SHIFT = 1
+// TODO: fill in text colors for the weather below
+let forecast_text_to_colors = {
+	'Cloudy': ['#888888', 'white'],
+	'Partly Cloudy': ['#99AACC', 'white'],
+	'Mostly Cloudy': ['#AAAAAA', 'white'],
+	'Rain': ['#0055AA', 'white'],
+	'Sunny': ['#FFFF44', 'white'],
+	'Mostly Sunny': ['#EEFF99', 'white'],
+	'Clear': ['#0080FE', 'white'],
+	'Mostly Clear': ['#0080CE', 'white'],
+	'Thunderstorms': ['#444400', 'white'],
+	'Scattered Thunderstorms': ['#666644', 'white'],
+}
 
 
 ///////////////// DRAW FUNCTIONS /////////////////
@@ -52,37 +67,73 @@ function drawWeekdays(dayshift=0) {
 	}
 }
 
-function drawEvent(event, dayshift) {
-	// verify that event falls in the correct timeframe!
+function drawForecastInColumn(f, column_index) {
+	let top = 0 * HOUR_HEIGHT
+	let height = 24 * HOUR_HEIGHT
+	let text = SHOW_WEATHER_TEXT? f['text']: ''
+	let background_color = 'black'
+	let color = 'white'
+	if (f['text'] in forecast_text_to_colors) {
+		background_color = forecast_text_to_colors[f['text']][0]
+		color = forecast_text_to_colors[f['text']][1]
+	} else {
+		alert('Missing weather swatch.  Please report this error to Matt.')
+	}
+	// add to HTML
+	let insertion_id = 'weekday-' + column_index
+	let $f = $('<div/>', {class: 'event', text: text})
+	$('#' + insertion_id).append($f)
+	$f.css({
+		'top': '' + top + 'px',
+		'height': '' + height + 'px',
+		'background-color': background_color,
+		'color': color,
+		'opacity': '0.27',
+	})
+}
+
+function drawEventInColumn(event, column_index) {
+	let top = event['start_hour_decimal'] * HOUR_HEIGHT
+	let height = event['hour_duration'] * HOUR_HEIGHT
+	let text = PRIVACY? 'busy': event['text']
+	// add to HTML
+	let insertion_id = 'weekday-' + column_index
+	let $event = $('<div/>', {class: 'event', text: text})
+	$('#' + insertion_id).append($event)
+	$event.css({
+		'top': '' + top + 'px',
+		'height': '' + height + 'px',
+	})
+}
+
+function drawBlock(block, dayshift) {
+	// verify that block falls in the correct timeframe!
 	let weekdates_to_draw = getWeekdatesToDraw(dayshift)
-	let event_date = Date.parse(event['date'])
+	let block_date = Date.parse(block['date'])
 	// IF the events are in order, THEN we can do this MORE EFFICIENTLY than we are doing it now:
-	for (let index in weekdates_to_draw) {
-		let weekdate = weekdates_to_draw[index]
-		// if (dayshift == 2) alert(weekdate)
-		// if (dayshift == 2) alert(event_date)
-		if (weekdate.equals(event_date)) {
-			// if (dayshift == 2) alert('EQUAL')
-			let top = event['start_hour_decimal'] * HOUR_HEIGHT
-			let height = event['hour_duration'] * HOUR_HEIGHT
-			let text = PRIVACY? 'busy': event['text']
-			// add to HTML
-			let insertion_id = 'weekday-' + index
-			let $event = $('<div/>', {class: 'event', text: text})
-			$('#' + insertion_id).append($event)
-			$event.css('top', '' + top + 'px')
-			$event.css('height', '' + height + 'px')
+	for (let column_index in weekdates_to_draw) {
+		let weekdate = weekdates_to_draw[column_index]
+		if (weekdate.equals(block_date)) {
+			if (block['class'] === 'calendar-event') {
+				drawEventInColumn(block, column_index)
+			}
+			else if (block['class'] === 'forecast') {
+				drawForecastInColumn(block, column_index)
+			}
+			else {
+				alert('Bad block.')
+			}
 			break
 		}
 	}
 }
 
-function drawEvents(events, dayshift=0) {
+function drawBlocks(blocks, dayshift=0) {
 	// erase events already on calendar
 	$('.content-of-weekday').html('')
 	// draw each event on the calendar
-	for (event of events) {
-		drawEvent(event, dayshift)
+	for (block of blocks) {
+		drawBlock(block, dayshift)
 	}
 }
 
@@ -96,7 +147,8 @@ function drawStatus(events) {
 function drawCalendar(events, dayshift=0) {
 	drawMonthAndYear(dayshift)
 	drawWeekdays(dayshift)
-	drawEvents(events, dayshift)
+	let blocks = events.concat(forecasts)
+	drawBlocks(blocks, dayshift)
 	drawStatus(events)
 }
 
@@ -104,10 +156,16 @@ function drawCalendar(events, dayshift=0) {
 /////////////////// OTHER FUNCTIONS ///////////////////
 function onmessage(dic) {
 	command	= dic['command']
-	if (command === 'populate-events') {
-		events = dic['events']
-		drawCalendar(events, dayshift)
+	if (command === 'populate-weather') {
+		forecasts = dic['data']
 	}
+	else if (command === 'populate-events') {
+		events = dic['events']
+	}
+	else {
+		alert('Bad command.')
+	}
+	drawCalendar(events, dayshift)
 }
 
 function onshift(direction) {
