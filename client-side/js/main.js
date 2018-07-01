@@ -11,18 +11,17 @@ let dayshift = 0
 let forecasts = []
 let events = []
 let NUM_DAYS_TO_SHIFT = 1
-// TODO: fill in text colors for the weather below
 let forecast_text_to_colors = {
-	'Cloudy': ['#888888', 'white'],
-	'Partly Cloudy': ['#99AACC', 'white'],
-	'Mostly Cloudy': ['#AAAAAA', 'white'],
-	'Rain': ['#0055AA', 'white'],
-	'Sunny': ['#FFFF44', 'white'],
-	'Mostly Sunny': ['#EEFF99', 'white'],
-	'Clear': ['#0080FE', 'white'],
-	'Mostly Clear': ['#0080CE', 'white'],
-	'Thunderstorms': ['#444400', 'white'],
-	'Scattered Thunderstorms': ['#666644', 'white'],
+	'Cloudy': ['#888888', '#121212'],
+	'Partly Cloudy': ['#99AACC', '#041C3A'],
+	'Mostly Cloudy': ['#AAAAAA', '#202020'],
+	'Rain': ['#0055AA', '#000520'],
+	'Sunny': ['#FFFF44', '#343401'],
+	'Mostly Sunny': ['#EEFF99', '#304409'],
+	'Clear': ['#0080FF', '#001034'],
+	'Mostly Clear': ['#0080D0', '#001028'],
+	'Thunderstorms': ['#444400', '#010100'],
+	'Scattered Thunderstorms': ['#666644', '#0A0A01'],
 }
 
 
@@ -88,7 +87,7 @@ function drawForecastInColumn(f, column_index) {
 		'height': '' + height + 'px',
 		'background-color': background_color,
 		'color': color,
-		'opacity': '0.27',
+		'opacity': '0.24',
 	})
 }
 
