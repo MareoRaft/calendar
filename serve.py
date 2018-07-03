@@ -21,20 +21,25 @@ class SocketHandler (WebSocketHandler):
 
 
 	def open(self):
+		global events
+		global events_dt_retrieved
 		print('websocket opened!')
 		weather = get_weather()
 		self.write_message({
 			'command': 'populate-weather',
 			'data': weather,
 		})
-		# make sure events are up-to-date
-		events = get_events(service, cal_names=['Away', 'Home'])
 		# send them events
 		js_events = [e.as_dict_for_javascript() for e in events]
+		js_events_dt_retrieved = events_dt_retrieved.strftime('%Y-%m-%dT%H:%M:%S')
 		self.write_message({
 			'command': 'populate-events',
 			'events': js_events,
+			'updated': js_events_dt_retrieved,
 		})
+		# update events for future
+		(events, events_dt_retrieved) = get_events(service, cal_names=['Away', 'Home'])
+
 
 	def on_message(self, message):
 		# Convert things to be more friendly.  Check for good input.
@@ -97,6 +102,9 @@ def main():
 	# setup
 	global service
 	service = get_service()
+	global events
+	global events_dt_retrieved
+	(events, events_dt_retrieved) = get_events(service, cal_names=['Away', 'Home'])
 	# kickoff server
 	server_kickoff()
 

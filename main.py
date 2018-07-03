@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import datetime
+from datetime import datetime
 
 from weather import Weather, Unit
 
@@ -20,11 +20,13 @@ def get_weather():
 	return data
 
 def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
+	# record the time that we get the events
+	dt_retrieved = datetime.now()
 	# get events
 	events = []
 	for cal_name in cal_names:
 		cal_id = CAL_NAME_TO_ID[cal_name]
-		now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+		now = datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 		eventsResult = service.events().list(
 			calendarId=cal_id,
 			timeMin=now,
@@ -37,7 +39,7 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# order events
 	events = sorted(events, key=lambda e: e.start_datetime())
 	# return
-	return events
+	return (events, dt_retrieved)
 
 def output(out_format='html'):
 	if out_format == 'svg':

@@ -3,6 +3,8 @@
 // Define websocket to be used for server interaction
 
 //////////////////// GLOBALS ////////////////////
+// use 'is' instead of 'check' for check-types library
+let is = check
 let socket = undefined
 let HOUR_HEIGHT = 54
 let PRIVACY = {{privacy}}
@@ -136,35 +138,50 @@ function drawBlocks(blocks, dayshift=0) {
 	}
 }
 
-function drawStatus(events) {
-	if (events.length > 0) {
-		// hide the 'loading' icon
-		$('.status-message').hide()
+function drawStatus(events, datetime_updated_string) {
+	if (events.length > 0 && is.not.null(datetime_updated_string)) {
+		// make status message
+		let datetime_updated = Date.parse(datetime_updated_string)
+		//{shortDate:"M/d/yyyy",longDate:"dddd, MMMM dd, yyyy",shortTime:"h:mm tt",longTime:"h:mm:ss tt",fullDateTime:"dddd, MMMM dd, yyyy h:mm:ss tt",sortableDateTime:"yyyy-MM-ddTHH:mm:ss",universalSortableDateTime:"yyyy-MM-dd HH:mm:ssZ",rfc1123:"ddd, dd MMM yyyy HH:mm:ss GMT",monthDay:"MMMM dd",yearMonth:"MMMM, yyyy"}
+		let friendly_string = datetime_updated.toString("MMMM d, h:m tt")
+		let status_message = 'Last updated ' + friendly_string
+		// update status icon
+		$status_message = $('.status-message')
+		$status_message.css({
+			'border-color': 'green',
+			'background-color': 'green',
+		})
+		$status_message.html(status_message)
 	}
 }
 
-function drawCalendar(events, dayshift=0) {
+function drawCalendar(events, dayshift=0, updated_string=null) {
 	drawMonthAndYear(dayshift)
 	drawWeekdays(dayshift)
 	let blocks = events.concat(forecasts)
 	drawBlocks(blocks, dayshift)
-	drawStatus(events)
+	drawStatus(events, updated_string)
 }
 
 
 /////////////////// OTHER FUNCTIONS ///////////////////
 function onmessage(dic) {
+	// defaults/fallback values
+	let datetime_updated_string = null
+	// get new values
 	command	= dic['command']
 	if (command === 'populate-weather') {
 		forecasts = dic['data']
 	}
 	else if (command === 'populate-events') {
 		events = dic['events']
+		datetime_updated_string = dic['updated']
 	}
 	else {
 		alert('Bad command.')
 	}
-	drawCalendar(events, dayshift)
+	// draw calendar
+	drawCalendar(events, dayshift, datetime_updated_string)
 }
 
 function onshift(direction) {
