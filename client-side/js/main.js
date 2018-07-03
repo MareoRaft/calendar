@@ -143,7 +143,7 @@ function drawStatus(events, datetime_updated_string) {
 		// make status message
 		let datetime_updated = Date.parse(datetime_updated_string)
 		//{shortDate:"M/d/yyyy",longDate:"dddd, MMMM dd, yyyy",shortTime:"h:mm tt",longTime:"h:mm:ss tt",fullDateTime:"dddd, MMMM dd, yyyy h:mm:ss tt",sortableDateTime:"yyyy-MM-ddTHH:mm:ss",universalSortableDateTime:"yyyy-MM-dd HH:mm:ssZ",rfc1123:"ddd, dd MMM yyyy HH:mm:ss GMT",monthDay:"MMMM dd",yearMonth:"MMMM, yyyy"}
-		let friendly_string = datetime_updated.toString("MMMM d, h:m tt")
+		let friendly_string = datetime_updated.toString("MMMM d, h:mm tt")
 		let status_message = 'Last updated ' + friendly_string
 		// update status icon
 		$status_message = $('.status-message')
