@@ -53,11 +53,24 @@ function drawWeekday(datetime, slot_num) {
 	// slot_num is the number of the column where to draw the weekday and daynumber in month
 	let weekday = datetime.getWeekdayName()
 	let weekday_short = weekday.slice(0, 3)
-	let day_num = datetime.getDate()
-	let weekday_slug = weekday_short + ' ' + day_num
+	let day_num = datetime.getDate().toString()
 	// put the info in the slot
-	let id = "weekday-slot-" + slot_num
-	$('#' + id).html(weekday_slug)
+	let weekday_id = "weekday-header-" + slot_num + ">" + ".weekday"
+	let $weekday = $('#' + weekday_id)
+	$weekday.html(weekday_short)
+	let day_num_id = "weekday-header-" + slot_num + ">" + ".day-num"
+	let $day_num = $('#' + day_num_id)
+	$day_num.html(day_num)
+	// iff the day is today, classify the day number as "today-num"
+	if (datetime.equals(Date.today())) {
+		if (day_num.length === 1) {
+			// our way of making the 'skinny' numbers still have a round background circle
+			$day_num.html('<font color="red">.</font>' + day_num + '<font color="red">.</font>')
+		}
+		$day_num.addClass("today-num")
+	} else {
+		$day_num.removeClass("today-num")
+	}
 }
 
 function drawWeekdays(dayshift=0) {
