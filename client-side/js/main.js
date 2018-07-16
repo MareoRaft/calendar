@@ -17,13 +17,14 @@ let forecast_text_to_colors = {
 	'Cloudy': ['#888888', '#121212'],
 	'Partly Cloudy': ['#99AACC', '#041C3A'],
 	'Mostly Cloudy': ['#AAAAAA', '#202020'],
+	'Scattered Showers': ['#2277CC', '#000520'],
 	'Rain': ['#0055AA', '#000520'],
 	'Sunny': ['#FFFF44', '#343401'],
 	'Mostly Sunny': ['#EEFF99', '#304409'],
 	'Clear': ['#0080FF', '#001034'],
 	'Mostly Clear': ['#0080D0', '#001028'],
 	'Thunderstorms': ['#444400', '#010100'],
-	'Scattered Thunderstorms': ['#666644', '#0A0A01'],
+	'Scattered Thunderstorms': ['#666644', 'black'],
 }
 
 
@@ -55,10 +56,10 @@ function drawWeekday(datetime, slot_num) {
 	let weekday_short = weekday.slice(0, 3)
 	let day_num = datetime.getDate().toString()
 	// put the info in the slot
-	let weekday_id = "weekday-header-" + slot_num + ">" + ".weekday"
+	let weekday_id = "weekday-header-" + slot_num + " " + ".weekday"
 	let $weekday = $('#' + weekday_id)
 	$weekday.html(weekday_short)
-	let day_num_id = "weekday-header-" + slot_num + ">" + ".day-num"
+	let day_num_id = "weekday-header-" + slot_num + " " + ".day-num"
 	let $day_num = $('#' + day_num_id)
 	$day_num.html(day_num)
 	// iff the day is today, classify the day number as "today-num"
