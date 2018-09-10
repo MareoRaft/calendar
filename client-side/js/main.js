@@ -25,6 +25,7 @@ let forecast_text_to_colors = {
 	'Mostly Clear': ['#0080D0', '#001028'],
 	'Thunderstorms': ['#444400', '#010100'],
 	'Scattered Thunderstorms': ['#666644', 'black'],
+	'Breezy': ['#DAF2D3', '#008A16'],
 }
 
 

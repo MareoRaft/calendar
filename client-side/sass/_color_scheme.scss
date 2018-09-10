@@ -1,0 +1,42 @@
+html {
+	color: black;
+}
+
+#header {
+	background-color: white; /* solid background color to cover up the #header-backdrop */
+}
+
+$status-background-color: red;
+.status-message {
+	border-color: $status-background-color;
+	background-color: $status-background-color;
+	color: white;
+}
+
+.days-of-week {
+	color: #333;
+}
+.today-num {
+	color: white;
+}
+
+#times-gutter {
+	color: #C1C1C1;
+}
+
+$hour-line-color: black;
+#content-of-week-backdrop .hour {
+	border-color: $hour-line-color;
+}
+#content-of-week-backdrop .last-hour {
+	border-color: $hour-line-color;
+}
+#content-of-week td {
+	background-color: white; /* by some insane glitch, the padding doesn't work unless a background color is set and not transparent */
+}
+
+.event {
+	background-color: #DAF2D3;
+	color: #008A16;
+}
+
