@@ -15,6 +15,7 @@ def hour_decimal(dt):
 
 class Event:
 	def __init__(self, event):
+		""" Takes in an event from google. """
 		self.event = event
 
 	def start_datetime(self):

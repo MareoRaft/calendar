@@ -1,4 +1,4 @@
-CLIENT_SIDE_DIRECTORY_PATH = "client-side/"
+CLIENT_SIDE_DIRECTORY_PATH = "../client-side/"
 PORT_NUMBER = 8811
 # Whether to show only 'busy' on each event.  Can be "true" or "false".
 PRIVACY = "true"

@@ -54,11 +54,11 @@ class Mongo:
     def replace_one(self, query, replacement, **options):
         self.address[self.database][self.collection].replace_one(query, replacement, **options)
 
-    def update(self, query, update, options):
+    def update(self, query, document, options):
         raise Exception('deprecated.  use replace_one(), update_one(), or update_many() instead.')
 
-    def upsert(self, query, update):
-        self.address[self.database][self.collection].update(query, update, upsert=True)
+    def upsert(self, query, document):
+        self.address[self.database][self.collection].update(query, document, upsert=True)
 
     def find_one(self, dict_fields=None, projection=None):
         return self.address[self.database][self.collection].find_one(dict_fields, projection)

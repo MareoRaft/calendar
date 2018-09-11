@@ -29,11 +29,11 @@ class SocketHandler (WebSocketHandler):
 			'data': weather,
 		})
 		# send them events
-		(js_events, js_events_datetime_retrieved) = db.get_js_events()
+		(js_events, js_datetime_retrieved) = db.get_js_events()
 		self.write_message({
 			'command': 'populate-events',
 			'events': js_events,
-			'updated': js_events_datetime_retrieved,
+			'updated': js_datetime_retrieved,
 		})
 
 

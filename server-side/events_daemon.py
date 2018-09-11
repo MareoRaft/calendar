@@ -3,13 +3,16 @@
 import time
 
 from helpers import get_service
-import main
+from main import get_events
 from config import CAL_NAMES, EVENT_DAEMON_REFRESH_RATE
 import db
 
 def get_events_and_update_db():
-	(events, events_datetime_retrieved) = main.get_events(service, cal_names=CAL_NAMES)
-	db.set_events(events)
+	# get events from google
+	global service
+	(events, datetime_retrieved) = get_events(service, cal_names=CAL_NAMES)
+	# put them in the database
+	db.set_events(events, datetime_retrieved)
 
 def main():
 	# setup

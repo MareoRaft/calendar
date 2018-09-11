@@ -20,8 +20,9 @@ def get_weather():
 	return data
 
 def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
+	""" Get events from GOOGLE """
 	# record the time that we get the events
-	dt_retrieved = datetime.now()
+	datetime_retrieved = datetime.now()
 	# get events
 	events = []
 	for cal_name in cal_names:
@@ -39,7 +40,7 @@ def get_events(service, cal_names=CAL_NAME_TO_ID.keys()):
 	# order events
 	events = sorted(events, key=lambda e: e.start_datetime())
 	# return
-	return (events, dt_retrieved)
+	return (events, datetime_retrieved)
 
 def output(out_format='html'):
 	if out_format == 'svg':
