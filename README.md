@@ -8,7 +8,7 @@ A program to share your google calendar publically/conveniently/beautifully with
 
   * Display current and future events
   * Display actual event contents or have them simply say 'busy'
-  * Color swatches on each day to indicate the weather (for past days too) (specific color for each weather combination, etc)
+  * Color swatches on each day to indicate the weather (specific color for each weather combination, etc)
 
 ## Requested Features
 
