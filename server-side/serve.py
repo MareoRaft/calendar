@@ -12,7 +12,7 @@ from tornado.web import url
 from tornado.ioloop import IOLoop
 from tornado.log import enable_pretty_logging
 
-from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY, SHOW_WEATHER_TEXT
+from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY, SHOW_WEATHER, SHOW_WEATHER_TEXT
 from main import get_weather
 import db
 
@@ -23,11 +23,12 @@ class SocketHandler (WebSocketHandler):
 	def open(self):
 		print('websocket opened!')
 		# send them weather
-		weather = get_weather()
-		self.write_message({
-			'command': 'populate-weather',
-			'data': weather,
-		})
+		if SHOW_WEATHER:
+			weather = get_weather()
+			self.write_message({
+				'command': 'populate-weather',
+				'data': weather,
+			})
 		# send them events
 		(js_events, js_datetime_retrieved) = db.get_js_events()
 		self.write_message({

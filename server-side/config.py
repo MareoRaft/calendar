@@ -2,6 +2,8 @@ CLIENT_SIDE_DIRECTORY_PATH = "../client-side/"
 PORT_NUMBER = 8811
 # Whether to show only 'busy' on each event.  Can be "true" or "false".
 PRIVACY = "true"
+# Whether to show weather color swatches at all.  Must be a PYTHON BOOLEAN.
+SHOW_WEATHER = False
 # Whether to show *text* at the top of each day saying the weather forecast.  Can be "true" or "false".
 SHOW_WEATHER_TEXT = "true"
 # How many events into the future to request from google, per calendar.

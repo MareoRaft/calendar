@@ -3,7 +3,8 @@ html {
 }
 
 #header {
-	background-color: white; /* solid background color to cover up the #header-backdrop */
+	/* solid background color to cover up the #header-backdrop */
+	background-color: white;
 }
 
 $status-background-color: red;
@@ -17,6 +18,8 @@ $status-background-color: red;
 	color: #333;
 }
 .today-num {
+	/* convert the red circle to green */
+	filter: hue-rotate(90deg);
 	color: white;
 }
 
@@ -32,7 +35,8 @@ $hour-line-color: black;
 	border-color: $hour-line-color;
 }
 #content-of-week td {
-	background-color: white; /* by some insane glitch, the padding doesn't work unless a background color is set and not transparent */
+	/* by some insane glitch, the padding doesn't work unless a background color is set and not transparent */
+	background-color: white;
 }
 
 .event {
