@@ -179,3 +179,15 @@ $circle-diameter: 28px;
 	/* colors and opacity populated by javascript */
 }
 
+/* FOOTER THINGS */
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 10px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: bottom;
+	align-content: bottom;
+	z-index: 3;
+}

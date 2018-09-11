@@ -1,7 +1,23 @@
+/* COLORS */
+$lightgrey: #C1C1C1;
+$darkgrey: #333;
+
+/* GLOBAL THINGS */
 html {
 	color: black;
 }
+a {
+	color: $lightgrey;
+	&:hover {
+		color: $darkgrey;
+	}
+	&:active {
+		color: green;
+	}
+}
 
+
+/* MAIN */
 #header {
 	/* solid background color to cover up the #header-backdrop */
 	background-color: white;
@@ -20,14 +36,14 @@ $status-success-background-color: green;
 }
 
 .days-of-week {
-	color: #333;
+	color: $darkgrey;
 }
 .today-num {
 	color: white;
 }
 
 #times-gutter {
-	color: #C1C1C1;
+	color: $lightgrey;
 }
 
 $hour-line-color: black;
