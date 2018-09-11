@@ -7,15 +7,10 @@ html {
 	color: black;
 }
 a {
-	color: $lightgrey;
-	&:hover {
-		color: $darkgrey;
-	}
 	&:active {
 		color: green;
 	}
 }
-
 
 /* MAIN */
 #header {
@@ -58,8 +53,26 @@ $hour-line-color: black;
 	background-color: white;
 }
 
-.event {
-	background-color: #DAF2D3;
+/* EVENTS */
+.calendar-event {
 	color: #008A16;
+	background-color: #DAF2D3;
+}
+.forecast {
+	/* colors and opacity populated by javascript */
+}
+
+/* FOOTER */
+footer > div {
+	color: $lightgrey;
+	&:hover {
+		color: $darkgrey;
+	}
+}
+footer a {
+	color: $lightgrey;
+	&:hover {
+		color: $darkgrey;
+	}
 }
 

@@ -8,6 +8,7 @@ let is = check
 let socket = undefined
 let HOUR_HEIGHT = 54
 let PRIVACY = {{privacy}}
+let SHOW_WEATHER = {{show_weather}}
 let SHOW_WEATHER_TEXT = {{show_weather_text}}
 let dayshift = 0
 let forecasts = []
@@ -136,7 +137,7 @@ function drawForecastInColumn(f, column_index) {
 	}
 	// add to HTML
 	let insertion_id = 'weekday-' + column_index
-	let $f = $('<div/>', {class: 'event', text: text})
+	let $f = $('<div/>', {class: 'event forecast', text: text})
 	$('#' + insertion_id).append($f)
 	$f.css({
 		'top': '' + top + 'px',
@@ -153,7 +154,7 @@ function drawEventInColumn(event, column_index) {
 	let text = PRIVACY? 'busy': event['text']
 	// add to HTML
 	let insertion_id = 'weekday-' + column_index
-	let $event = $('<div/>', {class: 'event', text: text})
+	let $event = $('<div/>', {class: 'event calendar-event', text: text})
 	$('#' + insertion_id).append($event)
 	$event.css({
 		'top': '' + top + 'px',
@@ -208,9 +209,11 @@ function drawStatus(events, datetime_updated_string) {
 }
 
 function drawCalendar(events, dayshift=0, updated_string=null) {
+	// you have to pass in the events you want to draw, but forecasts are automatically drawn if SHOW_WEATHER is true
 	drawMonthAndYear(dayshift)
 	drawWeekdays(dayshift)
-	let blocks = events.concat(forecasts)
+	let blocks = events
+	if (SHOW_WEATHER) blocks = blocks.concat(forecasts)
 	drawBlocks(blocks, dayshift)
 	drawStatus(events, updated_string)
 }
@@ -222,10 +225,10 @@ function onmessage(dic) {
 	let datetime_updated_string = null
 	// get new values
 	command	= dic['command']
-	if (command === 'populate-weather') {
+	if (command === 'load-weather') {
 		forecasts = dic['data']
 	}
-	else if (command === 'populate-events') {
+	else if (command === 'load-events') {
 		events = dic['events']
 		datetime_updated_string = dic['updated']
 	}
@@ -234,6 +237,28 @@ function onmessage(dic) {
 	}
 	// draw calendar
 	drawCalendar(events, dayshift, datetime_updated_string)
+}
+
+function updateWeatherLink() {
+	// changes the weather link between 'show' and 'hide'
+	let $link = $('#toggle-weather')
+	if (SHOW_WEATHER) {
+		$link.html('hide weather')
+	} else {
+		$link.html('show weather')
+	}
+}
+
+function toggleWeather() {
+	// Shows or hides the weather swatches
+	if (SHOW_WEATHER) {
+		$('.forecast').remove()
+		SHOW_WEATHER = false
+	} else {
+		SHOW_WEATHER = true
+		drawCalendar(events, dayshift)
+	}
+	updateWeatherLink()
 }
 
 function onshift(direction) {
@@ -254,6 +279,7 @@ function onrightshift() {
 function initTriggers() {
 	$('#shift-left').click(onleftshift)
 	$('#shift-right').click(onrightshift)
+	$('#toggle-weather').click(toggleWeather)
 }
 
 function initGlobals() {
@@ -264,5 +290,6 @@ $(document).ready(function(){
 	initGlobals()
 	// preliminary calendar drawing (without events)
 	drawCalendar(events)
+	updateWeatherLink()
 	initTriggers()
 })

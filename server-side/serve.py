@@ -23,16 +23,15 @@ class SocketHandler (WebSocketHandler):
 	def open(self):
 		print('websocket opened!')
 		# send them weather
-		if SHOW_WEATHER:
-			weather = get_weather()
-			self.write_message({
-				'command': 'populate-weather',
-				'data': weather,
-			})
+		weather = get_weather()
+		self.write_message({
+			'command': 'load-weather',
+			'data': weather,
+		})
 		# send them events
 		(js_events, js_datetime_retrieved) = db.get_js_events()
 		self.write_message({
-			'command': 'populate-events',
+			'command': 'load-events',
 			'events': js_events,
 			'updated': js_datetime_retrieved,
 		})
@@ -73,7 +72,10 @@ class JSMainHandler (RequestHandler):
 
 
 	def get(self):
-		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/main.js"), privacy=PRIVACY, show_weather_text=SHOW_WEATHER_TEXT)
+		self.render(path.join(CLIENT_SIDE_DIRECTORY_PATH, "js/main.js"),
+			privacy=PRIVACY,
+			show_weather=SHOW_WEATHER,
+			show_weather_text=SHOW_WEATHER_TEXT)
 
 
 def make_app():
