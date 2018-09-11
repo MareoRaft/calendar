@@ -29,10 +29,49 @@ let forecast_text_to_colors = {
 }
 
 
+///////////////// HELPERS /////////////////
+function myParseDate(string) {
+	// manually doing .setTimezone('EST') sucks.  We should override the Date constructor to set the time zone
+	let datetime = Date.parse(string)
+	// times from server are in EST.  Date object needs to know that so it can adjust times to user's locale/time zone correctly
+	datetime.setTimezone('EST')
+	return datetime
+}
+
+function myTodayShifted(dayshift=0) {
+	// manually doing .setTimezone('EST') sucks.  We should override the Date constructor to set the time zone
+	let today = Date.today().add({ days: dayshift })
+	today.setTimezone('EST')
+	return today
+}
+
+function hourDecimal(dt) {
+	// From a Date (datetime) object, get the hours as a decimal
+	// For example, the time 12:45 becomes 12.75
+	is.assert.not.string(dt)
+	let hour = dt.getHours()
+	let minute = dt.getMinutes()
+	let hour_decimal = hour + minute/60
+	return hour_decimal
+}
+
+function hourDecimalFromString(dt_string) {
+	is.assert.string(dt_string)
+	let dt = myParseDate(dt_string)
+	return hourDecimal(dt)
+}
+
+function isToday(datetime) {
+	let date = datetime.clone().clearTime()
+	let today = Date.today()
+	let is_today = date.equals(today)
+	return is_today
+}
+
 ///////////////// DRAW FUNCTIONS /////////////////
 // all of the draw functions also ERASE/REPLACE previously things drawn
 function drawMonthAndYear(dayshift=0) {
-	let date = Date.today().add({ days: dayshift })
+	let date = myTodayShifted(dayshift)
 	// retrieve month and year
 	let month_name = date.getMonthName()
 	let year_string = '' + date.getFullYear()
@@ -45,7 +84,7 @@ function getWeekdatesToDraw(dayshift=0) {
 	let weekdates = []
 	for (let daychange = 0; daychange < 7; daychange++) {
 		// we are using Date.js (www.datejs.com) to shift the day
-		let date = Date.today().add({ days: dayshift + daychange })
+		let date = myTodayShifted(dayshift + daychange)
 		weekdates.push(date)
 	}
 	return weekdates
@@ -64,7 +103,7 @@ function drawWeekday(datetime, slot_num) {
 	let $day_num = $('#' + day_num_id)
 	$day_num.html(day_num)
 	// iff the day is today, classify the day number as "today-num"
-	if (datetime.equals(Date.today())) {
+	if (isToday(datetime)) {
 		if (day_num.length === 1) {
 			// our way of making the 'skinny' numbers still have a round background circle
 			$day_num.html('<font color="red">.</font>' + day_num + '<font color="red">.</font>')
@@ -109,7 +148,7 @@ function drawForecastInColumn(f, column_index) {
 }
 
 function drawEventInColumn(event, column_index) {
-	let top = event['start_hour_decimal'] * HOUR_HEIGHT
+	let top = hourDecimalFromString(event['start_datetime']) * HOUR_HEIGHT
 	let height = event['hour_duration'] * HOUR_HEIGHT
 	let text = PRIVACY? 'busy': event['text']
 	// add to HTML
@@ -125,7 +164,7 @@ function drawEventInColumn(event, column_index) {
 function drawBlock(block, dayshift) {
 	// verify that block falls in the correct timeframe!
 	let weekdates_to_draw = getWeekdatesToDraw(dayshift)
-	let block_date = Date.parse(block['date'])
+	let block_date = myParseDate(block['date'])
 	// IF the events are in order, THEN we can do this MORE EFFICIENTLY than we are doing it now:
 	for (let column_index in weekdates_to_draw) {
 		let weekdate = weekdates_to_draw[column_index]
@@ -153,17 +192,10 @@ function drawBlocks(blocks, dayshift=0) {
 	}
 }
 
-function isToday(datetime) {
-	let date = datetime.clone().clearTime()
-	let today = Date.today()
-	let is_today = date.equals(today)
-	return is_today
-}
-
 function drawStatus(events, datetime_updated_string) {
 	if (events.length > 0 && is.not.null(datetime_updated_string)) {
 		// make status message
-		let datetime_updated = Date.parse(datetime_updated_string)
+		let datetime_updated = myParseDate(datetime_updated_string)
 		// see datejs source code itself for formatting examples
 		let format = isToday(datetime_updated)? "h:mm tt": "MMMM d, h:mm tt";
 		let friendly_string = datetime_updated.toString(format)
