@@ -13,32 +13,28 @@ from tornado.ioloop import IOLoop
 from tornado.log import enable_pretty_logging
 
 from config import PORT_NUMBER, CLIENT_SIDE_DIRECTORY_PATH, PRIVACY, SHOW_WEATHER_TEXT
-from helpers import get_service
-from main import get_events, get_weather
+from main import get_weather
+import db
 
 
 class SocketHandler (WebSocketHandler):
 
 
 	def open(self):
-		global events
-		global events_dt_retrieved
 		print('websocket opened!')
+		# send them weather
 		weather = get_weather()
 		self.write_message({
 			'command': 'populate-weather',
 			'data': weather,
 		})
 		# send them events
-		js_events = [e.as_dict_for_javascript() for e in events]
-		js_events_dt_retrieved = events_dt_retrieved.strftime('%Y-%m-%dT%H:%M:%S')
+		(js_events, js_events_datetime_retrieved) = db.get_js_events()
 		self.write_message({
 			'command': 'populate-events',
 			'events': js_events,
-			'updated': js_events_dt_retrieved,
+			'updated': js_events_datetime_retrieved,
 		})
-		# update events for future
-		(events, events_dt_retrieved) = get_events(service, cal_names=['Away', 'Home'])
 
 
 	def on_message(self, message):
@@ -86,9 +82,9 @@ def make_app():
 			url(r'/js/socket\.js', JSSocketHandler),
 			url(r'/js/main\.js', JSMainHandler),
 			url(r'/?', RedirectHandler, { "url": "index.html" }),
-			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }) # captures anything at all, and serves it as a static file. simple!
+			url(r'/(.*)', StaticFileHandler, { "path": CLIENT_SIDE_DIRECTORY_PATH }),
 		],
-		#settings
+		# settings
 		debug = True,
 	)
 
@@ -100,11 +96,6 @@ def server_kickoff():
 
 def main():
 	# setup
-	global service
-	service = get_service()
-	global events
-	global events_dt_retrieved
-	(events, events_dt_retrieved) = get_events(service, cal_names=['Away', 'Home'])
 	# kickoff server
 	server_kickoff()
 

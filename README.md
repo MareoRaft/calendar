@@ -13,6 +13,7 @@ A program to share your google calendar publically/conveniently/beautifully with
 ## Requested Features
 
   * ability to turn color weather swatches on/off
+  * create a Docker for this project, because google-api-python-client and oauth2client are so finicky
 
 ## Installation
 
@@ -22,5 +23,5 @@ A program to share your google calendar publically/conveniently/beautifully with
   4. Kick off the python script with the `--noauth_local_webserver` option, so google will not require you to login via a browser
   5. You need Tornado installed since this is setup to run on the tornado server framework.  But the code could be easily altered to work on what you are comfortable with, such as Flask or Django.  If somebody requests the feature, I would be willing to rewrite everything in JavaScript so that no server is needed.
   6. To build the CSS file from the SASS file, use compass or compass-for-gulp, or just manually copy the CSS file from somewhere else.
-  7. install Google API client with `python3 /usr/bin/pip install --upgrade google-api-python-client` or similar.
+  7. install Google API client with `python3 /usr/local/bin/pip install --upgrade google-api-python-client` or similar.
   8. Finally, run server with `./serve.py --noauth_local_webserver`.  Point browser to appropriate address.
