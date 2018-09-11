@@ -162,10 +162,7 @@ function drawStatus(events, datetime_updated_string) {
 		let status_message = 'Last updated ' + friendly_string
 		// update status icon
 		$status_message = $('.status-message')
-		$status_message.css({
-			'border-color': 'green',
-			'background-color': 'green',
-		})
+		$status_message.addClass('success')
 		$status_message.html(status_message)
 	}
 }

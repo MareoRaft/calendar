@@ -9,10 +9,11 @@ A program to share your google calendar publically/conveniently/beautifully with
   * Display current and future events
   * Display actual event contents or have them simply say 'busy'
   * Color swatches on each day to indicate the weather (specific color for each weather combination, etc)
+  * ability to turn color weather swatches on/off
 
 ## Requested Features
 
-  * ability to turn color weather swatches on/off
+  * time zone support: If the URL has a time zone parameter in it, it will adjust the times accordingly.
   * create a Docker for this project, because google-api-python-client and oauth2client are so finicky
   * change today num highlight color, check out: https://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement#11978996
 

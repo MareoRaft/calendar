@@ -8,10 +8,15 @@ html {
 }
 
 $status-background-color: red;
+$status-success-background-color: green;
 .status-message {
+	color: white;
 	border-color: $status-background-color;
 	background-color: $status-background-color;
-	color: white;
+	&.success {
+		border-color: $status-success-background-color;
+		background-color: $status-success-background-color;
+	}
 }
 
 .days-of-week {
@@ -19,7 +24,7 @@ $status-background-color: red;
 }
 .today-num {
 	/* convert the red circle to green */
-	filter: hue-rotate(90deg);
+	filter: hue-rotate(90deg) brightness(1.41);
 	color: white;
 }
 
