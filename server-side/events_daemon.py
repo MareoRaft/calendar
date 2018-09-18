@@ -17,6 +17,12 @@ def get_events_and_update_db():
 def main():
 	# run repeatedly
 	while True:
+		try:
+			get_events_and_update_db()
+			print('updated db')
+		except:
+			# if you hit an error, wait extra time before trying again
+			time.sleep(60 * 2 * EVENT_DAEMON_REFRESH_RATE)
 		get_events_and_update_db()
 		print('updated db')
 		time.sleep(60 * EVENT_DAEMON_REFRESH_RATE)
