@@ -9,17 +9,20 @@ import db
 
 def get_events_and_update_db():
 	# get events from google
-	global service
-	(events, datetime_retrieved) = get_events(service, cal_names=CAL_NAMES)
+	# it seems the google service connection was expiring, so we'll try getting a fresh service each time:
+	(events, datetime_retrieved) = get_events(get_service(), cal_names=CAL_NAMES)
 	# put them in the database
 	db.set_events(events, datetime_retrieved)
 
 def main():
-	# setup
-	global service
-	service = get_service()
 	# run repeatedly
 	while True:
+		try:
+			get_events_and_update_db()
+			print('updated db')
+		except:
+			# if you hit an error, wait extra time before trying again
+			time.sleep(60 * 2 * EVENT_DAEMON_REFRESH_RATE)
 		get_events_and_update_db()
 		print('updated db')
 		time.sleep(60 * EVENT_DAEMON_REFRESH_RATE)
