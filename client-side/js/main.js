@@ -15,18 +15,18 @@ let forecasts = []
 let events = []
 let NUM_DAYS_TO_SHIFT = 1
 let forecast_text_to_colors = {
-	'Cloudy': ['#888888', '#121212'],
-	'Partly Cloudy': ['#99AACC', '#041C3A'],
-	'Mostly Cloudy': ['#AAAAAA', '#202020'],
-	'Scattered Showers': ['#2277CC', '#000520'],
-	'Rain': ['#0055AA', '#000520'],
-	'Sunny': ['#FFFF44', '#343401'],
-	'Mostly Sunny': ['#EEFF99', '#304409'],
-	'Clear': ['#0080FF', '#001034'],
-	'Mostly Clear': ['#0080D0', '#001028'],
-	'Thunderstorms': ['#444400', '#010100'],
-	'Scattered Thunderstorms': ['#666644', 'black'],
-	'Breezy': ['#DAF2D3', '#008A16'],
+	'Cloudy': ['#888888', 'black'], // or maybe white?
+	'Partly Cloudy': ['#99AACC', 'black'],
+	'Mostly Cloudy': ['#AAAAAA', 'black'],
+	'Scattered Showers': ['#2277CC', 'black'],
+	'Rain': ['#0055AA', 'black'],
+	'Sunny': ['#FFFF44', 'black'],
+	'Mostly Sunny': ['#EEFF99', 'black'],
+	'Clear': ['#0080FF', 'black'],
+	'Mostly Clear': ['#0080D0', 'black'],
+	'Thunderstorms': ['#444400', 'white'], // don't think black would work here, but haven't verified!
+	'Scattered Thunderstorms': ['#666644', 'white'], // or maybe black?
+	'Breezy': ['#DAF2D3', 'black'],
 }
 
 
