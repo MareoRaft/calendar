@@ -1,7 +1,7 @@
 A program to share your google calendar publically/conveniently/beautifully with others.
 
 
-[Demo](http://learnnation.org/schedule.html).
+[Demo](http://learnnation.org/calendar.html).
 
 
 ## Features

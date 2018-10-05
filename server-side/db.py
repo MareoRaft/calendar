@@ -3,7 +3,7 @@ import pymongo
 from mongo import Mongo
 
 ## Create global db object (technically, it's a MongoDB cursor)
-DB = Mongo('schedule', 'events')
+DB = Mongo('calendar', 'events')
 QUERY = { '_id': 'unique' }
 
 def get_js_events():
