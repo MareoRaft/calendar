@@ -1,4 +1,6 @@
-A program to share your google calendar publically/conveniently/beautifully with others.
+# calendar
+
+A program to share your google calendar publically/conveniently/beautifully with others.  Host a read-only version of your calendar on the web.
 
 
 [Demo](http://learnnation.org/calendar.html).
