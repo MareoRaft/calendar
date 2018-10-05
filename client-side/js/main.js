@@ -108,7 +108,8 @@ function drawWeekday(datetime, slot_num) {
 	if (isToday(datetime)) {
 		if (day_num.length === 1) {
 			// our way of making the 'skinny' numbers still have a round background circle
-			$day_num.html('<font color="red">.</font>' + day_num + '<font color="red">.</font>')
+			let period_html = '<font class="today-num-background-text">.</font>'
+			$day_num.html(period_html + day_num + period_html)
 		}
 		$day_num.addClass("today-num")
 	} else {

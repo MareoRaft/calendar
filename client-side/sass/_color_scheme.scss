@@ -18,7 +18,7 @@ a {
 	background-color: white;
 }
 
-$status-background-color: red;
+$status-background-color: lightblue;
 $status-success-background-color: green;
 .status-message {
 	color: white;
@@ -35,6 +35,9 @@ $status-success-background-color: green;
 }
 .today-num {
 	color: white;
+}
+.today-num-background-text {
+	color: green;
 }
 
 #times-gutter {
