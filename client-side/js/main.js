@@ -18,7 +18,8 @@ let forecast_text_to_colors = {
 	'Cloudy': ['#888888', 'black'], // or maybe white?
 	'Partly Cloudy': ['#99AACC', 'black'],
 	'Mostly Cloudy': ['#AAAAAA', 'black'],
-	'Scattered Showers': ['#2277CC', 'black'],
+	'Showers': ['#2277CC', 'white'],
+	'Scattered Showers': ['#2277CC', 'white'],
 	'Rain': ['#0055AA', 'black'],
 	'Sunny': ['#FFFF44', 'black'],
 	'Mostly Sunny': ['#EEFF99', 'black'],
