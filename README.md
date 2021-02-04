@@ -36,16 +36,16 @@ Instead of using this, you can share your google calendars publically and have g
 
 Read [here](https://support.google.com/calendar/answer/37083#zippy=%2Cembed-your-calendar-on-a-website%2Cshare-it-with-a-certain-person%2Cshare-as-a-link) for directions on making your calendar public, then add `src=<Calendar ID>` to the URL for each calendar that you want to appear.  My Calendar IDs are...
 
-  * mvlancellotti%40gmail.com
-  * e2r5nqkil48kbshsql3ke1c61c%40group.calendar.google.com
-  * mf1urita2cmb4omf980ibv7bp4%40group.calendar.google.com
-  * gtbqdl9o6cpntqvlgnjbr6k00c%40group.calendar.google.com
-  * ihtu7s8srctam6tg8253gssu1c%40group.calendar.google.com
-  * p651eedige1fk0sf7770kb9i5s%40group.calendar.google.com
+    gmail:     mvlancellotti%40gmail.com
+    Away:      e2r5nqkil48kbshsql3ke1c61c%40group.calendar.google.com
+    Events:    mf1urita2cmb4omf980ibv7bp4%40group.calendar.google.com
+    Home:      gtbqdl9o6cpntqvlgnjbr6k00c%40group.calendar.google.com
+    Important: ihtu7s8srctam6tg8253gssu1c%40group.calendar.google.com
+    Italian:   p651eedige1fk0sf7770kb9i5s%40group.calendar.google.com
 
-so the URL that allows you to see them all together is
+so the URL that allows you to see them all (actually, with "Events" excluded) is
 
-https://calendar.google.com/calendar/embed?mode=WEEK&showTitle=0&src=mvlancellotti%40gmail.com&src=e2r5nqkil48kbshsql3ke1c61c%40group.calendar.google.com&src=mf1urita2cmb4omf980ibv7bp4%40group.calendar.google.com&src=gtbqdl9o6cpntqvlgnjbr6k00c%40group.calendar.google.com&src=ihtu7s8srctam6tg8253gssu1c%40group.calendar.google.com&src=p651eedige1fk0sf7770kb9i5s%40group.calendar.google.com
+https://calendar.google.com/calendar/embed?mode=WEEK&showTitle=0&src=mvlancellotti%40gmail.com&src=e2r5nqkil48kbshsql3ke1c61c%40group.calendar.google.com&src=gtbqdl9o6cpntqvlgnjbr6k00c%40group.calendar.google.com&src=ihtu7s8srctam6tg8253gssu1c%40group.calendar.google.com&src=p651eedige1fk0sf7770kb9i5s%40group.calendar.google.com
 
 See [here](https://calendar.google.com/calendar/u/0/embedhelper?src=r7b194fm80hc7ff0m5jouupil0%40group.calendar.google.com&ctz=America%2FNew_York) also for customizing the view, and the time zone.
 
